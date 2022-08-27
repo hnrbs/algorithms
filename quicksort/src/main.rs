@@ -11,19 +11,19 @@ fn quick_sort<T>(unsorted_list: &Vec<T>) -> Vec<T>
         return unsorted_list.clone();
     }
 
-    let pivot = unsorted_list.first().unwrap().clone();
+    let pivot = unsorted_list.first().unwrap();
     let mut less = Vec::new();
     let mut greater = Vec::new();
 
     for i in &unsorted_list[1..] {
-        if i.clone() <= pivot {
+        if *i <= *pivot {
             less.push(*i);
         } else {
             greater.push(*i);
         }
     }
 
-    vec![quick_sort(&less), vec![pivot], quick_sort(&greater)]
+    vec![quick_sort(&less), vec![*pivot], quick_sort(&greater)]
         .into_iter()
         .flatten()
         .collect()
