@@ -35,4 +35,10 @@ impl<'a, T: Hash + Eq + Debug> Search<'a, T> {
 
         None
     }
+
+    pub fn path(&self) {
+        let _ = self.explored_path.iter().map(|vertex| {
+            println!("{:#?}", vertex);
+        });
+    }
 }
