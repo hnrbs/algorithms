@@ -63,6 +63,14 @@ impl Decoder {
                         self.current_index += 1;
                         break;
                     },
+                    '\\' => {
+                        let next_char = self.input.as_bytes()[(self.current_index + 2) as usize] as char;
+
+                        word.push(next_char);
+                        self.current_index += 3;
+
+                        break;
+                    },
                     char => {
                         self.current_index += 1;
                         word.push(char);
@@ -99,5 +107,12 @@ mod test {
         assert_eq!(encoded, "lint#code\\##love#you#");
 
         assert_eq!(decode(encoded), input);
+    }
+
+    fn input_with_escaping_and_without_hashtag() {
+        let input = vec!["lint", "code\\", "love", "you"];
+
+        let encoded = encode(input.clone());
+        assert_eq!(encoded, "lint#code\\#love#you#");
     }
 }
